@@ -1,0 +1,664 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-glass: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --success: #10b981;
+  --error: #ef4444;
+  --border: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-blur: blur(12px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.5s ease;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  backdrop-filter: var(--glass-blur);
+  background: var(--bg-glass);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #fff, #a0a0a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+  background: var(--bg-glass);
+}
+
+/* Settings Panel */
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 100%;
+  max-width: 380px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  backdrop-filter: var(--glass-blur);
+  border-left: 1px solid var(--border);
+  padding: 1.5rem;
+  z-index: 1000;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.settings-panel.open {
+  right: 0;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.settings-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+}
+
+.setting-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.theme-btn, .bg-btn {
+  padding: 0.75rem 1rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.theme-btn:hover, .bg-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-btn.active, .bg-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: var(--bg-glass);
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+}
+
+#animations-toggle:checked + .toggle-slider {
+  background: var(--accent);
+}
+
+#animations-toggle:checked + .toggle-slider::before {
+  transform: translateX(24px);
+}
+
+/* Main Content */
+.main-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Hero Clock */
+.hero-section {
+  margin-bottom: 3rem;
+}
+
+.clock-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}
+
+.clock-main {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.clock-main > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.clock-main > div.active {
+  opacity: 1;
+}
+
+/* Digital Clock */
+.clock-digital {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.time-display {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+.date-display {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.timezone-label {
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Analog Clock */
+.clock-analog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.analog-face {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  border: 2px solid var(--border);
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  border-radius: 4px;
+}
+
+.hour-hand {
+  width: 4px;
+  height: 70px;
+  background: var(--text-primary);
+  transform: translateX(-50%);
+}
+
+.minute-hand {
+  width: 3px;
+  height: 100px;
+  background: var(--text-primary);
+  transform: translateX(-50%);
+}
+
+.second-hand {
+  width: 2px;
+  height: 110px;
+  background: var(--accent);
+  transform: translateX(-50%);
+}
+
+.analog-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Vintage Clock */
+.clock-vintage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vintage-face {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #8b4513, #daa520);
+  border: 8px solid #5d4037;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(139, 69, 19, 0.3);
+}
+
+.vintage-hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  border-radius: 4px;
+}
+
+.vintage-hand.hour-hand {
+  width: 6px;
+  height: 60px;
+  background: #2d1a12;
+  transform: translateX(-50%);
+}
+
+.vintage-hand.minute-hand {
+  width: 4px;
+  height: 90px;
+  background: #2d1a12;
+  transform: translateX(-50%);
+}
+
+.vintage-hand.second-hand {
+  width: 2px;
+  height: 100px;
+  background: #daa520;
+  transform: translateX(-50%);
+}
+
+.vintage-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: #daa520;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #2d1a12;
+}
+
+/* Glass Clock */
+.clock-glass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  padding: 2rem;
+}
+
+.glass-time {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.glass-date {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Trading Clock */
+.clock-trading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 2rem;
+  border-left: 4px solid var(--accent);
+}
+
+.trading-time {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.trading-date {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* World Clocks Grid */
+.clocks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.clock-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.clock-card:hover {
+  transform: translateY(-2px);
+}
+
+.clock-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.clock-card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.clock-card-time {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.clock-card-date {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.clock-card-offset {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+/* Time Converter */
+.converter-section {
+  margin-bottom: 3rem;
+}
+
+.converter-container {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.converter-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: end;
+}
+
+.converter-input-group {
+  flex: 1;
+}
+
+.converter-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.time-input, .timezone-select {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.converter-arrow {
+  text-align: center;
+  font-size: 2rem;
+  margin: 1rem 0;
+  color: var(--accent);
+}
+
+.converted-time {
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.utc-offset-display {
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Trading Sessions */
+.sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.session-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--error);
+  transition: background 0.3s ease;
+}
+
+.session-card.open::before {
+  background: var(--success);
+}
+
+.session-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.session-card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.session-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--error);
+  transition: background 0.3s ease;
+}
+
+.session-card.open .session-status {
+  background: var(--success);
+}
+
+.session-hours {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.session-countdown {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .clock-main {
+    width: 250px;
+    height: 250px;
+  }
+
+  .analog-face, .vintage-face {
+    width: 240px;
+    height: 240px;
+  }
+
+  .time-display {
+    font-size: 2.5rem;
+  }
+
+  .converter-row {
+    flex-direction: column;
+  }
+
+  .theme-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .clock-main {
+    width: 220px;
+    height: 220px;
+  }
+
+  .analog-face, .vintage-face {
+    width: 200px;
+    height: 200px;
+  }
+
+  .time-display {
+    font-size: 2rem;
+  }
+
+  .clocks-grid {
+    grid-template-columns: 1fr;
+  }
+}
