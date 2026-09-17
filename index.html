@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Time Tracker</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/themes.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-theme="digital" data-background="pure-black">
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="app-title">Global Time Tracker</h1>
+      <div class="header-controls">
+        <button class="btn-icon" id="settings-toggle" aria-label="Settings">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Settings Panel -->
+    <aside class="settings-panel" id="settings-panel">
+      <div class="settings-header">
+        <h2>Settings</h2>
+        <button class="btn-icon" id="settings-close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="settings-content">
+        <section class="setting-group">
+          <h3>Clock Format</h3>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="time-format" value="12h"> 12-hour
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="time-format" value="24h" checked> 24-hour
+            </label>
+          </div>
+        </section>
+
+        <section class="setting-group">
+          <h3>Clock Theme</h3>
+          <div class="theme-grid">
+            <button class="theme-btn" data-theme="digital">Digital</button>
+            <button class="theme-btn" data-theme="analog">Analog</button>
+            <button class="theme-btn" data-theme="vintage">Vintage</button>
+            <button class="theme-btn" data-theme="glass">Glass</button>
+            <button class="theme-btn" data-theme="trading">Trading</button>
+          </div>
+        </section>
+
+        <section class="setting-group">
+          <h3>Background</h3>
+          <div class="theme-grid">
+            <button class="bg-btn" data-bg="pure-black">Pure Black</button>
+            <button class="bg-btn" data-bg="gradient-dark">Gradient Dark</button>
+            <button class="bg-btn" data-bg="night-sky">Night Sky</button>
+            <button class="bg-btn" data-bg="city-lights">City Lights</button>
+            <button class="bg-btn" data-bg="forex-candles">Forex Candles</button>
+            <button class="bg-btn" data-bg="luxury-texture">Luxury</button>
+            <button class="bg-btn" data-bg="vintage-texture">Vintage</button>
+            <button class="bg-btn" data-bg="futuristic-neon">Futuristic</button>
+          </div>
+        </section>
+
+        <section class="setting-group">
+          <h3>Animations</h3>
+          <label class="toggle-label">
+            <input type="checkbox" id="animations-toggle" checked>
+            <span class="toggle-slider"></span>
+            Enable smooth animations
+          </label>
+        </section>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Clock -->
+      <section class="hero-section">
+        <div class="clock-container">
+          <div class="clock-main" id="main-clock">
+            <!-- Digital Clock -->
+            <div class="clock-digital">
+              <div class="time-display" id="digital-time">00:00:00</div>
+              <div class="date-display" id="digital-date">Monday, January 1, 2025</div>
+              <div class="timezone-label" id="digital-tz">UTC</div>
+            </div>
+
+            <!-- Analog Clock -->
+            <div class="clock-analog">
+              <div class="analog-face">
+                <div class="hand hour-hand" id="hour-hand"></div>
+                <div class="hand minute-hand" id="minute-hand"></div>
+                <div class="hand second-hand" id="second-hand"></div>
+                <div class="analog-center"></div>
+              </div>
+            </div>
+
+            <!-- Vintage Clock -->
+            <div class="clock-vintage">
+              <div class="vintage-face">
+                <div class="vintage-hand hour-hand" id="vintage-hour"></div>
+                <div class="vintage-hand minute-hand" id="vintage-minute"></div>
+                <div class="vintage-hand second-hand" id="vintage-second"></div>
+                <div class="vintage-center"></div>
+              </div>
+            </div>
+
+            <!-- Glass Clock -->
+            <div class="clock-glass">
+              <div class="glass-time" id="glass-time">00:00:00</div>
+              <div class="glass-date" id="glass-date">Mon, Jan 1</div>
+            </div>
+
+            <!-- Trading Clock -->
+            <div class="clock-trading">
+              <div class="trading-time" id="trading-time">00:00:00</div>
+              <div class="trading-date" id="trading-date">UTC</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- World Clocks Grid -->
+      <section class="clocks-section">
+        <h2 class="section-title">World & Trading Clocks</h2>
+        <div class="clocks-grid" id="clocks-grid">
+          <!-- Clocks injected via JS -->
+        </div>
+      </section>
+
+      <!-- Time Converter -->
+      <section class="converter-section">
+        <h2 class="section-title">Time Converter</h2>
+        <div class="converter-container">
+          <div class="converter-row">
+            <div class="converter-input-group">
+              <label>Source Time</label>
+              <input type="time" id="source-time" class="time-input">
+            </div>
+            <div class="converter-input-group">
+              <label>From Timezone</label>
+              <select id="source-timezone" class="timezone-select">
+                <option value="local">Local</option>
+                <option value="UTC">UTC</option>
+                <option value="Europe/London">London</option>
+                <option value="America/New_York">New York</option>
+                <option value="Asia/Tokyo">Tokyo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="converter-arrow">⇄</div>
+
+          <div class="converter-row">
+            <div class="converter-input-group">
+              <label>Target Timezone</label>
+              <select id="target-timezone" class="timezone-select">
+                <option value="local">Local</option>
+                <option value="UTC">UTC</option>
+                <option value="Europe/London">London</option>
+                <option value="America/New_York">New York</option>
+                <option value="Asia/Tokyo">Tokyo</option>
+              </select>
+            </div>
+            <div class="converter-input-group">
+              <label>Converted Time</label>
+              <div class="converted-time" id="converted-time">--:--:--</div>
+            </div>
+          </div>
+
+          <div class="utc-offset-display">
+            <span id="source-offset">UTC±0</span> → <span id="target-offset">UTC±0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trading Sessions -->
+      <section class="sessions-section">
+        <h2 class="section-title">Trading Sessions</h2>
+        <div class="sessions-grid" id="sessions-grid">
+          <!-- Sessions injected via JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="scripts/settings.js"></script>
+  <script src="scripts/clocks.js"></script>
+  <script src="scripts/converter.js"></script>
+  <script src="scripts/sessions.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
